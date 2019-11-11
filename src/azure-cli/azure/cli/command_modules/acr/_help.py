@@ -577,7 +577,6 @@ short-summary: Creates a series of steps for building, testing and OS & Framewor
 examples:
   - name: Create a task without the source location.
     text: >
-        az acr task create -n hello-world -r MyRegistry --cmd '$Registry/myimage' -c /dev/null
   - name: Create a task without the source location and with a timer trigger that runs the image `MyImage` at the top of every hour using the default trigger name.
     text: >
         az acr task create -n hello-world -r MyRegistry --cmd '$Registry/myimage' -c /dev/null --schedule "0 */1 * * *"
