@@ -26,7 +26,8 @@ from ._format import (
     scope_map_output_format,
     token_output_format,
     token_credential_output_format,
-    agentpool_output_format
+    agentpool_output_format,
+    connected_registry_output_format
 )
 from ._client_factory import (
     cf_acr_registries,
@@ -39,7 +40,8 @@ from ._client_factory import (
     cf_acr_tokens,
     cf_acr_token_credentials,
     cf_acr_private_endpoint_connections,
-    cf_acr_agentpool
+    cf_acr_agentpool,
+    cf_acr_connected_registry
 )
 
 
@@ -153,6 +155,12 @@ def load_command_table(self, _):  # pylint: disable=too-many-statements
         operations_tmpl='azure.cli.command_modules.acr.agentpool#{}',
         table_transformer=agentpool_output_format,
         client_factory=cf_acr_agentpool
+    )
+
+    acr_connected_registry_util = CliCommandType(
+        operations_tmpl='azure.cli.command_modules.acr.connected_registry#{}',
+        table_transformer=connected_registry_output_format,
+        client_factory=cf_acr_connected_registry
     )
 
     acr_private_endpoint_connection_util = CliCommandType(
@@ -343,3 +351,10 @@ def load_command_table(self, _):  # pylint: disable=too-many-statements
     with self.command_group('acr encryption', acr_custom_util) as g:
         g.show_command('show', 'show_encryption')
         g.command('rotate-key', "rotate_key")
+
+    with self.command_group('acr connected-registry', acr_connected_registry_util, is_preview=True) as g:
+        g.command('create', 'acr_connected_registry_create', supports_no_wait=True)
+        g.command('delete', 'acr_connected_registry_delete', supports_no_wait=True)
+        g.command('list', 'acr_connected_registry_list')
+        g.show_command('show', 'acr_connected_registry_show')
+        g.command('update', 'acr_connected_registry_update', supports_no_wait=True)
