@@ -77,8 +77,9 @@ def acr_connected_acr_create(cmd,
         sync_token_id = _create_sync_token(cmd, resource_group_name, registry_name,
                                            connected_acr_name, repositories, mode)
 
-    ConnectedRegistry, LoggingProperties, SyncProperties, ParentProperties = cmd.get_models(
-        'ConnectedRegistry', 'LoggingProperties', 'SyncProperties', 'ParentProperties')
+    from .azure.mgmt.containerregistry.v2020_11_01_preview.models import ConnectedRegistry, LoggingProperties, ParentProperties, SyncProperties
+#    ConnectedRegistry, LoggingProperties, SyncProperties, ParentProperties = cmd.get_models(
+#        'ConnectedRegistry', 'LoggingProperties', 'SyncProperties', 'ParentProperties')
     connected_acr_create_parameters = ConnectedRegistry(
         provisioning_state=None,
         mode=mode,
@@ -145,8 +146,9 @@ def acr_connected_acr_update(cmd,
             'Update ambiguity. Duplicate client token ids were provided with ' +
             '--add-client-token-ids and --remove-client-token-ids arguments.\n{}'.format(errors))
 
-    ConnectedRegistryUpdateParameters, SyncProperties, LoggingProperties = cmd.get_models(
-                'ConnectedRegistryUpdateParameters', 'SyncProperties', 'LoggingProperties')
+    from .azure.mgmt.containerregistry.v2020_11_01_preview.models import ConnectedRegistryUpdateParameters, SyncProperties, LoggingProperties
+#    ConnectedRegistryUpdateParameters, SyncProperties, LoggingProperties = cmd.get_models(
+#                'ConnectedRegistryUpdateParameters', 'SyncProperties', 'LoggingProperties')
     connected_acr_update_parameters = ConnectedRegistryUpdateParameters(
         sync_properties=SyncProperties(
             token_id=current_connected_acr.parent.sync_properties.token_id,
