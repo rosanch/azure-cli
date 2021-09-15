@@ -334,7 +334,14 @@ def load_command_table(self, _):  # pylint: disable=too-many-statements
         g.command('list', 'acr_agentpool_list')
         g.show_command('show', 'acr_agentpool_show')
 
-    with self.command_group('acr private-endpoint-connection', acr_private_endpoint_connection_util) as g:
+    with self.command_group('acr private-endpoint-connection', acr_private_endpoint_connection_util, deprecate_info=self.deprecate(redirect='acr private-access-connection', hide=True)) as g:
+        g.command('delete', 'delete')
+        g.show_command('show', 'show')
+        g.command('list', 'list_connections')
+        g.command('approve', 'approve')
+        g.command('reject', 'reject')
+
+    with self.command_group('acr private-access-connection', acr_private_endpoint_connection_util) as g:
         g.command('delete', 'delete')
         g.show_command('show', 'show')
         g.command('list', 'list_connections')

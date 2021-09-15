@@ -316,7 +316,7 @@ def load_arguments(self, _):  # pylint: disable=too-many-statements
     with self.argument_context('acr check-health') as c:
         c.argument('ignore_errors', options_list=['--ignore-errors'], help='Provide all health checks, even if errors are found', action='store_true', required=False)
         c.argument('vnet', options_list=['--vnet'],
-                   help="Virtual network ID so to run this command inside a VNET to verify the DNS routing to private endpoints", required=False)
+                   help="Virtual network ID so to run this command inside a VNET to verify the DNS routing to private accesses", required=False)
 
     with self.argument_context('acr scope-map') as c:
         c.argument('registry_name', options_list=['--registry', '-r'])
@@ -388,11 +388,18 @@ def load_arguments(self, _):  # pylint: disable=too-many-statements
     with self.argument_context('acr agentpool show') as c:
         c.argument('queue_count', help="Get only the queue count", action='store_true')
 
+    with self.argument_context('acr private-access-connection') as c:
+        # to match private_access_connection_command_guideline.md guidelines
+        c.argument('registry_name', options_list=['--registry-name', '-r'], help='The name of the container registry. You can configure the default registry name using `az configure --defaults acr=<registry name>`', completer=get_resource_name_completion_list(REGISTRY_RESOURCE_TYPE), configured_default='acr')
+        c.argument('private_endpoint_connection_name', options_list=['--name', '-n'], help='The name of the private access connection')
+        c.argument('approval_description', options_list=['--description'], help='Approval description. For example, the reason for approval.')
+        c.argument('rejection_description', options_list=['--description'], help='Rejection description. For example, the reason for rejection.')
+
+    # Remove after deprecation
     with self.argument_context('acr private-endpoint-connection') as c:
         # to match private_endpoint_connection_command_guideline.md guidelines
         c.argument('registry_name', options_list=['--registry-name', '-r'], help='The name of the container registry. You can configure the default registry name using `az configure --defaults acr=<registry name>`', completer=get_resource_name_completion_list(REGISTRY_RESOURCE_TYPE), configured_default='acr')
-        c.argument('private_endpoint_connection_name', options_list=['--name', '-n'], help='The name of the private endpoint connection')
-
+        c.argument('private_endpoint_connection_name', options_list=['--name', '-n'], help='The name of the private access connection')
         c.argument('approval_description', options_list=['--description'], help='Approval description. For example, the reason for approval.')
         c.argument('rejection_description', options_list=['--description'], help='Rejection description. For example, the reason for rejection.')
 

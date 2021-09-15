@@ -1347,6 +1347,55 @@ examples:
 """
 # endregion
 
+# region private-access-connection
+# be careful to keep long-summary consistent in this region
+helps['acr private-access-connection'] = """
+type: group
+short-summary: Manage container registry private access connections
+long-summary: To create a private access connection use "az network private-endpoint create". For more information see https://aka.ms/acr/private-link
+"""
+
+helps['acr private-access-connection approve'] = """
+type: command
+short-summary: Approve a private access connection request for a container registry
+long-summary: To create a private access connection use "az network private-endpoint create". For more information see https://aka.ms/acr/private-link
+"""
+
+helps['acr private-access-connection reject'] = """
+type: command
+short-summary: Reject a private access connection request for a container registry
+long-summary: To create a private access connection use "az network private-endpoint create". For more information see https://aka.ms/acr/private-link
+"""
+
+helps['acr private-access-connection list'] = """
+type: command
+short-summary: List all private access connections to a container registry
+long-summary: To create a private access connection use "az network private-endpoint create". For more information see https://aka.ms/acr/private-link
+"""
+
+helps['acr private-access-connection show'] = """
+type: command
+short-summary:  Show details of a container registry's private access connection
+long-summary: To create a private access connection use "az network private-endpoint create". For more information see https://aka.ms/acr/private-link
+"""
+
+helps['acr private-access-connection delete'] = """
+type: command
+short-summary:  Delete a private access connection request for a container registry
+long-summary: To create a private access connection use "az network private-endpoint create". For more information see https://aka.ms/acr/private-link
+"""
+
+helps['acr private-link-resource'] = """
+type: group
+short-summary: Manage registry private link resources.
+"""
+
+helps['acr private-link-resource list'] = """
+type: command
+short-summary: list the private link resources supported for a registry
+"""
+# endregion
+
 # region private-endpoint-connection
 # be careful to keep long-summary consistent in this region
 helps['acr private-endpoint-connection'] = """
@@ -1383,16 +1432,6 @@ helps['acr private-endpoint-connection delete'] = """
 type: command
 short-summary:  Delete a private endpoint connection request for a container registry
 long-summary: To create a private endpoint connection use "az network private-endpoint create". For more information see https://aka.ms/acr/private-link
-"""
-
-helps['acr private-link-resource'] = """
-type: group
-short-summary: Manage registry private link resources.
-"""
-
-helps['acr private-link-resource list'] = """
-type: command
-short-summary: list the private link resources supported for a registry
 """
 # endregion
 

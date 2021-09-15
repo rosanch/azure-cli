@@ -339,7 +339,7 @@ def _check_private_endpoint(cmd, registry_name, vnet_of_private_endpoint):  # py
     from azure.cli.core.commands.client_factory import get_mgmt_service_client
 
     if registry_name is None:
-        raise CLIError("Registry name must be provided to verify DNS routings of its private endpoints")
+        raise CLIError("Registry name must be provided to verify DNS routings of its private accesses")
 
     registry = None
 
@@ -347,7 +347,7 @@ def _check_private_endpoint(cmd, registry_name, vnet_of_private_endpoint):  # py
     registry, _ = get_registry_by_name(cmd.cli_ctx, registry_name)
 
     if not registry.private_endpoint_connections:
-        raise CLIError('Registry "{}" doesn\'t have private endpoints to verify DNS routings.'.format(registry_name))
+        raise CLIError('Registry "{}" doesn\'t have private accesses to verify DNS routings.'.format(registry_name))
 
     if is_valid_resource_id(vnet_of_private_endpoint):
         res = parse_resource_id(vnet_of_private_endpoint)
@@ -373,14 +373,14 @@ def _check_private_endpoint(cmd, registry_name, vnet_of_private_endpoint):  # py
             nic = network_client.network_interfaces.get(nic_res['resource_group'], nic_res['name'])
             for dns_config in nic.ip_configurations:
                 if dns_config.private_link_connection_properties.fqdns[0] in dns_mappings:
-                    err = ('Registry "{}" has more than one private endpoint in the vnet of "{}".'
+                    err = ('Registry "{}" has more than one private access in the vnet of "{}".'
                            ' DNS routing will be unreliable')
                     raise CLIError(err.format(registry_name, vnet_of_private_endpoint))
                 dns_mappings[dns_config.private_link_connection_properties.fqdns[0]] = dns_config.private_ip_address
 
     dns_ok = True
     if not dns_mappings:
-        err = ('Registry "{}" doesn\'t have private endpoints in the vnet of "{}".'
+        err = ('Registry "{}" doesn\'t have private accesses in the vnet of "{}".'
                ' Please make sure you provided correct vnet')
         raise CLIError(err.format(registry_name, vnet_of_private_endpoint))
 
@@ -396,7 +396,7 @@ def _check_private_endpoint(cmd, registry_name, vnet_of_private_endpoint):  # py
             dns_ok = False
 
     if dns_ok:
-        print_pass('DNS routing to private endpoint')
+        print_pass('DNS routing to private access')
     else:
         raise CLIError('DNS routing verification failed')
 
